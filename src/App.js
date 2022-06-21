@@ -6,6 +6,7 @@ function App() {
   return (
     <div className="app"> 
         <DateComponent ></DateComponent> 
+        <button></button>
     </div>
   );
 }
