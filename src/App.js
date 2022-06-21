@@ -6,8 +6,7 @@ function App() {
   return (
     <div className="app"> 
         <DateComponent ></DateComponent> 
-        <button></button>
-        <button></button>
+        
     </div>
   );
 }
