@@ -7,7 +7,6 @@ function App() {
     <div className="app"> 
         <DateComponent ></DateComponent> 
         <button></button>
-        <button></button>
     </div>
   );
 }
