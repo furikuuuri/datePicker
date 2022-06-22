@@ -8,7 +8,7 @@ const SET_SELECTED_DATE_TIME = "SET_SELECTED_DATE_TIME"
 const defaultState = {
     dates:[],//даты с возможными временами
     selectedDay:{},//выбранный день
-    availableTimes:{},//возможные времена
+    availableTimes:[],//возможные времена
     selectedDateTime:{}//выбранная дата
 }
 

@@ -41,7 +41,7 @@ const loadState = () => {
     }
 };
 const oldState = loadState();
-export const store=createStore(rootReducer,oldState,composeWithDevTools(applyMiddleware(thunk)))
+export const store=createStore(rootReducer,composeWithDevTools(applyMiddleware(thunk)))
 store.subscribe(() => {
     saveState(store.getState());
 });
