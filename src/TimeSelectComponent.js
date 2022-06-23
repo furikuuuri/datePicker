@@ -38,21 +38,20 @@ const ITEM_PADDING_TOP = 8;
     
 
   useEffect(()=>{
-    console.log(selectedTime)
+   
   }
  ,[selectedDate])
   return (
     <div>
-        {console.log(selectedTime)}
+        
         <FormControl sx={{ m: 1, width: 300 }}>
           <InputLabel id="demo-multiple-name-label">Время</InputLabel>
           <Select
             labelId="demo-multiple-name-label"
             id="demo-multiple-name"            
             value={selectedTime}
-            defaultValue={''}
             onChange={handleChange}
-            input={<OutlinedInput label="Время"/>}
+            input={<OutlinedInput label="Name" />}
             MenuProps={MenuProps}
           >
           {availableTimes?.map((dateTime) => (

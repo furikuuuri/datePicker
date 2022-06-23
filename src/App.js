@@ -74,15 +74,21 @@ function App() {
               style={{
                 display:"flex",
                 alignItems:"flex-start",
-                flexDirection:"row",
+                flexDirection:"column",
             }}>
-              <DateComponent style={{
-                maxWidth:"100px"
-            }}/>   
+              <DateComponent/>   
             {availableTimesCount!=0 &&      
               <>      
-                <TimeSelectComponent selectedTimeProps={null}/>
-                {!(Object.keys(selectedDateTime).length === 0 && selectedDateTime.constructor === Object) && <Button variant="contained" onClick={()=>setOpen(true)}>Выбрать</Button>}
+                <TimeSelectComponent/>
+                {!(Object.keys(selectedDateTime).length === 0 && selectedDateTime.constructor === Object) &&
+                <>
+                 <TextField sx={{ m: 1, width: 300 }}
+                  disabledid="outlined-disabled"
+                  label="Выбранная дата" 
+                  value={`${new Date(selectedDateTime.date).getDate()}.${new Date(selectedDateTime.date).getMonth()+1}.${new Date(selectedDateTime.date).getFullYear()} ${selectedDateTime.startTime}`}/>
+                 <Button variant="contained" onClick={()=>setOpen(true)}>Выбрать</Button>
+                </>
+                }
               </>
             }
             </Container>
@@ -90,8 +96,7 @@ function App() {
               <DialogTitle>Подтвержение</DialogTitle>
               <DialogContent>
                 <DialogContentText>
-                  Вы выбрали {selectedDateTime.date} 
-                  Время:{selectedDateTime.startTime}-{selectedDateTime.endTime}
+                 Заполните форму
                 </DialogContentText>
                 <TextField
                   autoFocus
@@ -127,11 +132,11 @@ function App() {
               autoHideDuration={6000}
               onClose={()=>setAlertOpen(false)}
               message={informationMessage}
-              vertical= 'top'
-          horizontal= 'right'
+              vertical='top'
+              horizontal= 'right'
               //action={action}
             >
-              <Alert  severity="success" sx={{ width: '100%' }}>
+              <Alert  severity="success" sx={{ width: '100%',height:'100px' }}>
                 {informationMessage}
               </Alert>
              </Snackbar>

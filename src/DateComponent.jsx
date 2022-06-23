@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Badge } from '@mui/material';
 import { setAvailableTimes, setSelectedDateTime, setSelectedDay } from './reducers/timeReducer';
+import { fontSize } from '@mui/system';
 
 
 function DateComponent() {
@@ -19,14 +20,15 @@ function DateComponent() {
     setChoosenDate(val);
     dispatch(setSelectedDay(new Date(val)))
     dispatch(setAvailableTimes(datesForSetAvailableTimes.filter(p=>{return new Date(p.date).getTime()==val.getTime()})))
-    dispatch(setSelectedDateTime({}));
+    //dispatch(setSelectedDateTime({}));
   }
   
 
   return (
     
-       <LocalizationProvider dateAdapter={AdapterDateFns}>
+       <LocalizationProvider  dateAdapter={AdapterDateFns}>
           <CalendarPicker 
+            size="large"
             openTo="day"
             disableHighlightToday={true}
             minDate={new Date()}
@@ -39,7 +41,9 @@ function DateComponent() {
               return (
                   <PickersDay {...DayComponentProps} 
                   style={{
-                    backgroundColor:isSelected?"#ff66ff":"white"
+                    backgroundColor:isSelected?"#1B1C84":"#91E48F",
+                    color:isSelected?"white":"black",
+                    fontSize:"15px",
                   }}/>
               );
             }}
