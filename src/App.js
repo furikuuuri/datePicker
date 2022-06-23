@@ -1,5 +1,8 @@
-
-import { Button, Paper, Stack,Dialog,DialogActions,DialogTitle,DialogContent,DialogContentText,TextField } from '@mui/material';
+import * as React from 'react';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import { Button, Paper, Stack,Dialog,DialogActions,DialogTitle,DialogContent,DialogContentText,TextField,Alert } from '@mui/material';
 import { Container } from '@mui/system';
 import DateComponent from './DateComponent';
 import "./styles/app.css"
@@ -9,6 +12,10 @@ import getFreeAcivitiesService from './API/getFreeActivitiesService';
 import { useEffect,useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDates } from './reducers/timeReducer';
+import bookActivityService from './API/bookActivityService';
+import { setAvailableTimes, setSelectedDateTime, setSelectedDay } from './reducers/timeReducer';
+
+
 function App() {
   const dispatch=useDispatch();
   useEffect( async() => {
@@ -18,14 +25,32 @@ function App() {
   const availableTimesCount=useSelector(state=>state.times.availableTimes).length
   const selectedDateTime=useSelector(state=>state.times.selectedDateTime)
   const [open, setOpen] = useState(false);
+  const [alertOpen,setAlertOpen]=useState(false);
+  const [informationMessage,setInformationMessage]=useState();
+  const [email,setEmail]=useState();
+  const [comment,setComment]=useState();
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
+  
+  const sendData=async ()=>
+  {
+    var result =await bookActivityService(selectedDateTime.id,email,comment);
     setOpen(false);
-  };
+    setInformationMessage(result);
+    setAlertOpen(true);
+    dispatch(setSelectedDay({}))
+    dispatch(setAvailableTimes([]))
+    dispatch(setSelectedDateTime({}))
+    try{
+      var dates= await getFreeAcivitiesService();
+      dispatch(setDates(dates))
+    }
+    catch(exc)
+    {
+      dispatch(setDates([]))
+    }
+    
+    
+  }
  
   return (
     
@@ -56,12 +81,12 @@ function App() {
             }}/>   
             {availableTimesCount!=0 &&      
               <>      
-                <TimeSelectComponent/>
-                {!(Object.keys(selectedDateTime).length === 0 && selectedDateTime.constructor === Object) && <Button variant="contained" onClick={handleClickOpen}>Выбрать</Button>}
+                <TimeSelectComponent selectedTimeProps={null}/>
+                {!(Object.keys(selectedDateTime).length === 0 && selectedDateTime.constructor === Object) && <Button variant="contained" onClick={()=>setOpen(true)}>Выбрать</Button>}
               </>
             }
             </Container>
-            <Dialog open={open} onClose={handleClose}>
+            <Dialog open={open} onClose={()=>setOpen(false)}>
               <DialogTitle>Подтвержение</DialogTitle>
               <DialogContent>
                 <DialogContentText>
@@ -70,6 +95,8 @@ function App() {
                 </DialogContentText>
                 <TextField
                   autoFocus
+                  value={email}
+                  onChange={(event)=>setEmail(event.target.value)}
                   margin="dense"
                   id="name"
                   label="Email Address"
@@ -79,8 +106,11 @@ function App() {
                 />
                 <TextField
                   autoFocus
+                  value={comment}
+                  onChange={(event)=>setComment(event.target.value)}
                   margin="dense"
                   id="name"
+                  multiline
                   label="Комментарий"
                   type="text"
                   fullWidth
@@ -88,11 +118,23 @@ function App() {
                 />
               </DialogContent>
               <DialogActions>
-                <Button onClick={handleClose}>Отправить</Button>
-                <Button onClick={handleClose}>Отмена</Button>
+                <Button onClick={sendData}>Отправить</Button>
+                <Button onClick={()=>setOpen(false)}>Отмена</Button>
               </DialogActions>
             </Dialog>
-        
+            <Snackbar
+              open={alertOpen}
+              autoHideDuration={6000}
+              onClose={()=>setAlertOpen(false)}
+              message={informationMessage}
+              vertical= 'top'
+          horizontal= 'right'
+              //action={action}
+            >
+              <Alert  severity="success" sx={{ width: '100%' }}>
+                {informationMessage}
+              </Alert>
+             </Snackbar>
         </Paper>
 
    

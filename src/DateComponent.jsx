@@ -14,6 +14,7 @@ function DateComponent() {
   const [choosenDate,setChoosenDate]=useState()
   const onChangeDate=(val)=>
   {
+    dispatch(setAvailableTimes([]))
     console.log(val)
     setChoosenDate(val);
     dispatch(setSelectedDay(new Date(val)))
