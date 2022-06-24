@@ -58,20 +58,20 @@ function App() {
     
     
     
-        <Paper
-          maxHeight
-          elevation={24}
-          style={{
-            display:"flex",
-            alignItems:"flex-start",
-            flexDirection:"column",
-            width:"90vw",
-            height:"90vh",
-            marginBottom:'5vh',
-            backgroundColor:'#e6f7ff',
-            marginTop:'5vh',
-            marginLeft:'5vw'
-        }}> 
+        // <Paper
+        //   maxHeight
+        //   elevation={24}
+        //   style={{
+        //     display:"flex",
+        //     alignItems:"flex-start",
+        //     flexDirection:"column",
+        //     width:"90vw",
+        //     height:"90vh",
+        //     marginBottom:'5vh',
+        //     backgroundColor:'#e6f7ff',
+        //     marginTop:'5vh',
+        //     marginLeft:'5vw'
+        // }}> 
             <Container
               style={{
                 width:"100%",
@@ -85,6 +85,7 @@ function App() {
                   color:"white",
                   borderRadius:"20px",
                   margin:"30px",
+                  textAlign:"center",
                   padding:"10px",
                   fontSize:"40px"
                 }}>Бронирование встреч OrangeProcess</div>
@@ -92,15 +93,16 @@ function App() {
                 style={{
                   width:"100%",
                   display:"flex",
-                  justifyContent:"center"
+                  justifyContent:"center",
+                  flexWrap:"wrap"
                 }}>
                 <DateComponent/>
                 <div
                     style={{
-                      width:"25vw",
-                      marginTop:"100px",
-                      justifySelf:"end",
-                      fontSize:"30px"
+                      width:"100%",
+                      maxWidth:"500px",
+                      fontSize:"30px",
+                      padding:"10px"
                     }}>
                   <div>1. Выберите дату</div>
                   {availableTimesCount!=0 && <div>2. Выберите доступное время</div>}
@@ -108,12 +110,18 @@ function App() {
                 </div>
               </div>  
             {availableTimesCount!=0 &&      
-              <>      
+              <div style={{
+                width:"100%",
+                display:"flex",
+                flexDirection:"column",
+                alignItems:"center"
+              }}>       
                 <TimeSelectComponent/>
                 {!(Object.keys(selectedDateTime).length === 0 && selectedDateTime.constructor === Object) &&
                 <>
-                 <TextField sx={{ m: 1, width: 600 }}
+                 <TextField sx={{ m: 1, maxWidth: 600 }}
                   disabledid="outlined-disabled"
+                  fullWidth
                   label="Выбранная дата" 
                   value={`${new Date(selectedDateTime.date).getDate()}.${new Date(selectedDateTime.date).getMonth()+1}.${new Date(selectedDateTime.date).getFullYear()} ${selectedDateTime.startTime}`}/>
                   <TextField 
@@ -122,13 +130,15 @@ function App() {
                   onChange={(event)=>setEmail(event.target.value)}
                   margin="dense"
                   id="name"
+                  fullWidth
                   label="Email Address"
                   type="email"
-                  sx={{ m: 1, width: 600 }}
+                  sx={{ m: 1, maxWidth: 600 }}
                   variant="standard"
                 />
                 <TextField 
                   autoFocus
+                  fullWidth
                   value={comment}
                   onChange={(event)=>setComment(event.target.value)}
                   margin="dense"
@@ -136,15 +146,14 @@ function App() {
                   multiline
                   label="Комментарий"
                   type="text"
-                  sx={{ m: 1, width: 600 }}
+                  sx={{ m: 1, maxWidth: 600 }}
                   variant="standard"
                 />
-                 <Button variant="contained" sx={{ m: 1, width: 600,height:50,fontSize:"16px"}} onClick={()=>sendData()}>Выбрать</Button>
+                 <Button variant="contained" fullWidth sx={{ m: 1, maxWidth: 600,height:50,fontSize:"16px"}} onClick={()=>sendData()}>Выбрать</Button>
                 </>
                 }
-              </>
+              </div>
             }
-            </Container>
             <Dialog open={open} fullWidth={true}
         maxWidth={"md"} onClose={()=>setOpen(false)}>
               <DialogTitle>Подтвержение</DialogTitle>
@@ -168,7 +177,9 @@ function App() {
                 <Button onClick={()=>setOpen(false)}>Окей</Button>
               </DialogActions>
             </Dialog>
-        </Paper>
+            </Container>
+            
+        //</Paper>
 
    
 

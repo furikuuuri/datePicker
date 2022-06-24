@@ -42,16 +42,16 @@ const ITEM_PADDING_TOP = 8;
   }
  ,[selectedDate])
   return (
-    <div>
+   
         
-        <FormControl sx={{ m: 1, width: 600 }}>
+        <FormControl fullWidth sx={{ m: 1, maxWidth: 600 }}>
           <InputLabel id="demo-multiple-name-label">Время</InputLabel>
           <Select
             labelId="demo-multiple-name-label"
             id="demo-multiple-name"            
             value={selectedTime}
             onChange={handleChange}
-            input={<OutlinedInput label="Name" />}
+            input={<OutlinedInput fullWidth label="Name" />}
             MenuProps={MenuProps}
           >
           {availableTimes?.map((dateTime) => (
@@ -66,6 +66,6 @@ const ITEM_PADDING_TOP = 8;
       </FormControl>
       
       
-    </div>
+  
   );
 }
