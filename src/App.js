@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setDates } from './reducers/timeReducer';
 import bookActivityService from './API/bookActivityService';
 import { setAvailableTimes, setSelectedDateTime, setSelectedDay } from './reducers/timeReducer';
+import "./styles/app.css"
 
 
 function App() {
@@ -34,15 +35,16 @@ function App() {
   const sendData=async ()=>
   {
     var result =await bookActivityService(selectedDateTime.id,email,comment);
-    setOpen(false);
+    setOpen(true);
     setInformationMessage(result);
-    setAlertOpen(true);
+  
     dispatch(setSelectedDay({}))
     dispatch(setAvailableTimes([]))
     dispatch(setSelectedDateTime({}))
     try{
       var dates= await getFreeAcivitiesService();
       dispatch(setDates(dates))
+      
     }
     catch(exc)
     {
@@ -57,48 +59,64 @@ function App() {
     
     
         <Paper
-          
           maxHeight
           elevation={24}
           style={{
             display:"flex",
             alignItems:"flex-start",
             flexDirection:"column",
-            width:"70vw",
-            height:"80vh",
+            width:"90vw",
+            height:"90vh",
+            marginBottom:'5vh',
             backgroundColor:'#e6f7ff',
-            marginTop:'10vh',
-            marginLeft:'15vw'
+            marginTop:'5vh',
+            marginLeft:'5vw'
         }}> 
             <Container
               style={{
+                width:"100%",
                 display:"flex",
-                alignItems:"flex-start",
-                flexDirection:"column",
+                alignItems:"center",
+                flexDirection:"column"
             }}>
-              <DateComponent/>   
+              <div
+                style={{
+                  backgroundColor:"#1B1C84",
+                  color:"white",
+                  borderRadius:"20px",
+                  margin:"30px",
+                  padding:"10px",
+                  fontSize:"40px"
+                }}>Бронирование встреч OrangeProcess</div>
+              <div
+                style={{
+                  width:"100%",
+                  display:"flex",
+                  justifyContent:"center"
+                }}>
+                <DateComponent/>
+                <div
+                    style={{
+                      width:"25vw",
+                      marginTop:"100px",
+                      justifySelf:"end",
+                      fontSize:"30px"
+                    }}>
+                  <div>1. Выберите дату</div>
+                  {availableTimesCount!=0 && <div>2. Выберите доступное время</div>}
+                  {!(Object.keys(selectedDateTime).length === 0 && selectedDateTime.constructor === Object) &&<div>3. Проверьте выбранное время и нажмите кнопку отправить для записи</div>}
+                </div>
+              </div>  
             {availableTimesCount!=0 &&      
               <>      
                 <TimeSelectComponent/>
                 {!(Object.keys(selectedDateTime).length === 0 && selectedDateTime.constructor === Object) &&
                 <>
-                 <TextField sx={{ m: 1, width: 300 }}
+                 <TextField sx={{ m: 1, width: 600 }}
                   disabledid="outlined-disabled"
                   label="Выбранная дата" 
                   value={`${new Date(selectedDateTime.date).getDate()}.${new Date(selectedDateTime.date).getMonth()+1}.${new Date(selectedDateTime.date).getFullYear()} ${selectedDateTime.startTime}`}/>
-                 <Button variant="contained" onClick={()=>setOpen(true)}>Выбрать</Button>
-                </>
-                }
-              </>
-            }
-            </Container>
-            <Dialog open={open} onClose={()=>setOpen(false)}>
-              <DialogTitle>Подтвержение</DialogTitle>
-              <DialogContent>
-                <DialogContentText>
-                 Заполните форму
-                </DialogContentText>
-                <TextField
+                  <TextField 
                   autoFocus
                   value={email}
                   onChange={(event)=>setEmail(event.target.value)}
@@ -106,10 +124,10 @@ function App() {
                   id="name"
                   label="Email Address"
                   type="email"
-                  fullWidth
+                  sx={{ m: 1, width: 600 }}
                   variant="standard"
                 />
-                <TextField
+                <TextField 
                   autoFocus
                   value={comment}
                   onChange={(event)=>setComment(event.target.value)}
@@ -118,28 +136,38 @@ function App() {
                   multiline
                   label="Комментарий"
                   type="text"
-                  fullWidth
+                  sx={{ m: 1, width: 600 }}
                   variant="standard"
                 />
+                 <Button variant="contained" sx={{ m: 1, width: 600,height:50,fontSize:"16px"}} onClick={()=>sendData()}>Выбрать</Button>
+                </>
+                }
+              </>
+            }
+            </Container>
+            <Dialog open={open} fullWidth={true}
+        maxWidth={"md"} onClose={()=>setOpen(false)}>
+              <DialogTitle>Подтвержение</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                </DialogContentText>
+                <Alert  severity={informationMessage?.status}>
+                  <div
+                  style={{
+                    display:"flex",
+                    flexDirection:"column",
+                    alignItems:"center",
+                    fontSize:"20px"
+                  }}>
+                    <div>{informationMessage?.info}</div>
+                    <div>{informationMessage?.result.join_url}</div>
+                  </div>
+                </Alert>
               </DialogContent>
               <DialogActions>
-                <Button onClick={sendData}>Отправить</Button>
-                <Button onClick={()=>setOpen(false)}>Отмена</Button>
+                <Button onClick={()=>setOpen(false)}>Окей</Button>
               </DialogActions>
             </Dialog>
-            <Snackbar
-              open={alertOpen}
-              autoHideDuration={6000}
-              onClose={()=>setAlertOpen(false)}
-              message={informationMessage}
-              vertical='top'
-              horizontal= 'right'
-              //action={action}
-            >
-              <Alert  severity="success" sx={{ width: '100%',height:'100px' }}>
-                {informationMessage}
-              </Alert>
-             </Snackbar>
         </Paper>
 
    

@@ -44,7 +44,7 @@ const ITEM_PADDING_TOP = 8;
   return (
     <div>
         
-        <FormControl sx={{ m: 1, width: 300 }}>
+        <FormControl sx={{ m: 1, width: 600 }}>
           <InputLabel id="demo-multiple-name-label">Время</InputLabel>
           <Select
             labelId="demo-multiple-name-label"

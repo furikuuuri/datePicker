@@ -26,9 +26,13 @@ function DateComponent() {
 
   return (
     
-       <LocalizationProvider  dateAdapter={AdapterDateFns}>
+       <LocalizationProvider style={{
+        boxShadow: '0 1.5rem 2rem rgba(156, 136, 255, 0.2)'
+      }}  dateAdapter={AdapterDateFns}>
           <CalendarPicker 
-            size="large"
+            sx={{
+              border: '1px solid #9c88ff',
+            }}
             openTo="day"
             disableHighlightToday={true}
             minDate={new Date()}
@@ -38,7 +42,7 @@ function DateComponent() {
               const isSelected =
                 !DayComponentProps.outsideCurrentMonth &&
                 dates.indexOf(day.getTime()) >= 0;
-              return (
+                return (
                   <PickersDay {...DayComponentProps} 
                   style={{
                     backgroundColor:isSelected?"#1B1C84":"#91E48F",
