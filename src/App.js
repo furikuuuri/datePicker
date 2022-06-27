@@ -2,8 +2,8 @@ import * as React from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Button, Paper, Stack,Dialog,DialogActions,DialogTitle,DialogContent,DialogContentText,TextField,Alert } from '@mui/material';
-import { Container } from '@mui/system';
+import { Button, Paper, Stack,Dialog,DialogActions,DialogTitle,DialogContent,DialogContentText,TextField,Alert,Tooltip } from '@mui/material';
+import { borderBottom, Container } from '@mui/system';
 import DateComponent from './DateComponent';
 import "./styles/app.css"
 import TimeSelectComponent from './TimeSelectComponent';
@@ -15,6 +15,7 @@ import { setDates } from './reducers/timeReducer';
 import bookActivityService from './API/bookActivityService';
 import { setAvailableTimes, setSelectedDateTime, setSelectedDay } from './reducers/timeReducer';
 import "./styles/app.css"
+import ErrorIcon from '@mui/icons-material/Error';
 
 
 function App() {
@@ -25,11 +26,13 @@ function App() {
   },[])
   const availableTimesCount=useSelector(state=>state.times.availableTimes).length
   const selectedDateTime=useSelector(state=>state.times.selectedDateTime)
+  const avDates=useSelector(state=>state.times.dates);
   const [open, setOpen] = useState(false);
   const [alertOpen,setAlertOpen]=useState(false);
   const [informationMessage,setInformationMessage]=useState();
   const [email,setEmail]=useState();
   const [comment,setComment]=useState();
+  const [errorEmail,setErrorEmail]=useState(true);
 
   
   const sendData=async ()=>
@@ -53,7 +56,12 @@ function App() {
     
     
   }
- 
+  const onEmailChange=(val)=>
+  {
+    setEmail(val)
+    let isValid=val.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+    isValid?setErrorEmail(false):setErrorEmail(true);
+  } 
   return (
     
     
@@ -94,7 +102,10 @@ function App() {
                   width:"100%",
                   display:"flex",
                   justifyContent:"center",
-                  flexWrap:"wrap"
+                  flexWrap:"wrap",
+                  padding:"20px",
+                  //borderBottom:"solid black 2px",
+                  borderTop:"solid black 2px"
                 }}>
                 <DateComponent/>
                 <div
@@ -104,9 +115,10 @@ function App() {
                       fontSize:"30px",
                       padding:"10px"
                     }}>
-                  <div>1. Выберите дату</div>
-                  {availableTimesCount!=0 && <div>2. Выберите доступное время</div>}
-                  {!(Object.keys(selectedDateTime).length === 0 && selectedDateTime.constructor === Object) &&<div>3. Проверьте выбранное время и нажмите кнопку отправить для записи</div>}
+                  {avDates.length!=0&&<div className="instruction_animate" >1. Выберите дату</div>}
+                  {availableTimesCount!=0 && <div className="instruction_animate">2. Выберите доступное время</div>}
+                  {!(Object.keys(selectedDateTime).length === 0 && selectedDateTime.constructor === Object)&&availableTimesCount!=0 &&<div className="instruction_animate">3. Проверьте выбранное время и нажмите кнопку отправить для записи</div>}
+                  {avDates.length==0 &&<div className="instruction_animate">Нет свободных слотов :(</div>}
                 </div>
               </div>  
             {availableTimesCount!=0 &&      
@@ -115,6 +127,7 @@ function App() {
                 display:"flex",
                 flexDirection:"column",
                 alignItems:"center"
+                
               }}>       
                 <TimeSelectComponent/>
                 {!(Object.keys(selectedDateTime).length === 0 && selectedDateTime.constructor === Object) &&
@@ -122,21 +135,41 @@ function App() {
                  <TextField sx={{ m: 1, maxWidth: 600 }}
                   disabledid="outlined-disabled"
                   fullWidth
+                  className="instruction_animate"
                   label="Выбранная дата" 
                   value={`${new Date(selectedDateTime.date).getDate()}.${new Date(selectedDateTime.date).getMonth()+1}.${new Date(selectedDateTime.date).getFullYear()} ${selectedDateTime.startTime}`}/>
-                  <TextField 
-                  autoFocus
-                  value={email}
-                  onChange={(event)=>setEmail(event.target.value)}
-                  margin="dense"
-                  id="name"
-                  fullWidth
-                  label="Email Address"
-                  type="email"
-                  sx={{ m: 1, maxWidth: 600 }}
-                  variant="standard"
-                />
+                  <div
+                  style={{
+                    justifyContent:"center",
+                    maxWidth:"600px",
+                    display:"flex",
+                    width:"100%"
+                  }}> 
+                    {errorEmail&&<Tooltip title="Некорректный email">
+                          <ErrorIcon
+                          className="instruction_animate"
+                          style={{
+                          alignSelf:"flex-end",
+                          paddingBottom:"7px"
+                        }} color="error"></ErrorIcon>
+                    </Tooltip>}
+                    <TextField 
+                    className="instruction_animate"
+                    autoFocus
+                    value={email}
+                    onChange={(event)=>onEmailChange(event.target.value)}
+                    margin="dense"
+                    id="name"
+                    fullWidth
+                    label="Email Address"
+                    type="email"
+                    sx={{ m: 1, maxWidth: 600,margin:"0px" }}
+                    variant="standard"
+                  /></div>
+                 
+                
                 <TextField 
+                  className="instruction_animate"
                   autoFocus
                   fullWidth
                   value={comment}
@@ -149,7 +182,7 @@ function App() {
                   sx={{ m: 1, maxWidth: 600 }}
                   variant="standard"
                 />
-                 <Button variant="contained" fullWidth sx={{ m: 1, maxWidth: 600,height:50,fontSize:"16px"}} onClick={()=>sendData()}>Выбрать</Button>
+                 <Button variant="contained"  className="instruction_animate" disabled={errorEmail} fullWidth sx={{ m: 1, maxWidth: 600,height:50,fontSize:"16px"}} onClick={()=>sendData()}>Выбрать</Button>
                 </>
                 }
               </div>
@@ -169,7 +202,7 @@ function App() {
                     fontSize:"20px"
                   }}>
                     <div>{informationMessage?.info}</div>
-                    <div>{informationMessage?.result.join_url}</div>
+                    <div>{informationMessage?.result?.join_url}</div>
                   </div>
                 </Alert>
               </DialogContent>

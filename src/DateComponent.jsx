@@ -32,7 +32,9 @@ function DateComponent() {
           <CalendarPicker 
             sx={{
               border: '1px solid #9c88ff',
+              boxShadow: '0 1.5rem 2rem rgba(156, 136, 255, 0.2)'
             }}
+            fullWidth
             openTo="day"
             disableHighlightToday={true}
             minDate={new Date()}

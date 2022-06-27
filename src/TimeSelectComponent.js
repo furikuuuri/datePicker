@@ -43,15 +43,22 @@ const ITEM_PADDING_TOP = 8;
  ,[selectedDate])
   return (
    
-        
+        <div
+          className="instruction_animate"
+         style={{
+          width:"100%",
+          display:"flex",
+          justifyContent:"center"
+        }}>
         <FormControl fullWidth sx={{ m: 1, maxWidth: 600 }}>
-          <InputLabel id="demo-multiple-name-label">Время</InputLabel>
+          <InputLabel  id="demo-multiple-name-label" >Время</InputLabel>
           <Select
+            className="instruction_animate"
             labelId="demo-multiple-name-label"
             id="demo-multiple-name"            
             value={selectedTime}
             onChange={handleChange}
-            input={<OutlinedInput fullWidth label="Name" />}
+            input={<OutlinedInput className="instruction_animate" fullWidth label="Name" />}
             MenuProps={MenuProps}
           >
           {availableTimes?.map((dateTime) => (
@@ -64,6 +71,7 @@ const ITEM_PADDING_TOP = 8;
           ))}
         </Select>
       </FormControl>
+      </div>
       
       
   
