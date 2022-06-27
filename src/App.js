@@ -2,7 +2,7 @@ import * as React from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Button, Paper, Stack,Dialog,DialogActions,DialogTitle,DialogContent,DialogContentText,TextField,Alert,Tooltip } from '@mui/material';
+import { Button, Paper, Stack,Dialog,DialogActions,DialogTitle,DialogContent,DialogContentText,TextField,Alert,Tooltip,CircularProgress } from '@mui/material';
 import { borderBottom, Container } from '@mui/system';
 import DateComponent from './DateComponent';
 import "./styles/app.css"
@@ -33,13 +33,17 @@ function App() {
   const [email,setEmail]=useState();
   const [comment,setComment]=useState();
   const [errorEmail,setErrorEmail]=useState(true);
+  const [isLoading,setIsLoading]=useState(true);
 
   
   const sendData=async ()=>
   {
-    var result =await bookActivityService(selectedDateTime.id,email,comment);
+    setIsLoading(true)
     setOpen(true);
+    var result =await bookActivityService(selectedDateTime.id,email,comment);
+    
     setInformationMessage(result);
+    setIsLoading(false);
   
     dispatch(setSelectedDay({}))
     dispatch(setAvailableTimes([]))
@@ -206,10 +210,14 @@ function App() {
             <Dialog open={open} fullWidth={true}
         maxWidth={"md"} onClose={()=>setOpen(false)}>
               <DialogTitle>Подтвержение</DialogTitle>
-              <DialogContent>
-                <DialogContentText>
-                </DialogContentText>
-                <Alert  severity={informationMessage?.status}>
+              <DialogContent
+              style={{
+                display:"flex",
+                alignItems:"center"
+              }}>
+               <div>
+                {isLoading&&<CircularProgress color="secondary" />}
+                {!isLoading&&<Alert  severity={informationMessage?.status}>
                   <div
                   style={{
                     display:"flex",
@@ -220,7 +228,8 @@ function App() {
                     <div>{informationMessage?.info}</div>
                     <div>{informationMessage?.result?.join_url}</div>
                   </div>
-                </Alert>
+                </Alert>}
+                </div>
               </DialogContent>
               <DialogActions>
                 <Button onClick={()=>setOpen(false)}>Окей</Button>
