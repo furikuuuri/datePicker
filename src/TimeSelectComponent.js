@@ -50,7 +50,7 @@ const ITEM_PADDING_TOP = 8;
           display:"flex",
           justifyContent:"center"
         }}>
-        <FormControl fullWidth sx={{ m: 1, maxWidth: 600 }}>
+        <FormControl fullWidth sx={{ m: 1,maxWidth:"1000px",marginLeft:"0px",marginRight:"0px"}}>
           <InputLabel  id="demo-multiple-name-label" >Время</InputLabel>
           <Select
             className="instruction_animate"

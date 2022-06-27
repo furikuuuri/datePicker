@@ -25,14 +25,19 @@ function DateComponent() {
   
 
   return (
-    
+    <div style={{
+      border: '1px solid #9c88ff',
+      boxShadow: '0 1.5rem 2rem rgba(156, 136, 255, 0.2)',
+      borderRadius:"20px",
+      justifySelf: "start"
+    }}>
        <LocalizationProvider style={{
-        boxShadow: '0 1.5rem 2rem rgba(156, 136, 255, 0.2)'
+        
+       
       }}  dateAdapter={AdapterDateFns}>
           <CalendarPicker 
             sx={{
-              border: '1px solid #9c88ff',
-              boxShadow: '0 1.5rem 2rem rgba(156, 136, 255, 0.2)'
+              
             }}
             fullWidth
             openTo="day"
@@ -56,7 +61,7 @@ function DateComponent() {
             
           />
       </LocalizationProvider>
-    
+    </div>
   );
 }
 

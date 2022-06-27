@@ -82,6 +82,7 @@ function App() {
         // }}> 
             <Container
               style={{
+
                 width:"100%",
                 display:"flex",
                 alignItems:"center",
@@ -89,31 +90,43 @@ function App() {
             }}>
               <div
                 style={{
-                  backgroundColor:"#1B1C84",
-                  color:"white",
+                  width:"100%",
+                  maxWidth:"1000px",
+                 // backgroundColor:"#1B1C84",
+                  color:"#1B1C84",
                   borderRadius:"20px",
+                  border:"solid rgba(156, 136, 255) 2px",
                   margin:"30px",
                   textAlign:"center",
-                  padding:"10px",
-                  fontSize:"40px"
+                  paddingTop:"10px",
+                  paddingBottom:"10px",
+                  fontSize:"40px",
+                  boxShadow: '0 1.5rem 2rem rgba(156, 136, 255, 0.2)'
                 }}>Бронирование встреч OrangeProcess</div>
               <div
                 style={{
                   width:"100%",
                   display:"flex",
-                  justifyContent:"center",
+                  justifyContent:"space-around",
                   flexWrap:"wrap",
-                  padding:"20px",
+                  paddingTop:"20px",
                   //borderBottom:"solid black 2px",
-                  borderTop:"solid black 2px"
+                 // border:"solid black 2px",
+                 // borderRadius:"20px"
                 }}>
-                <DateComponent/>
+                <DateComponent style={{
+                  
+                }}/>
                 <div
                     style={{
                       width:"100%",
                       maxWidth:"500px",
                       fontSize:"30px",
-                      padding:"10px"
+                      padding:"10px",
+                      display:"flex",
+                      flexDirection:"column",
+                      alignItems:"flex-start"
+
                     }}>
                   {avDates.length!=0&&<div className="instruction_animate" >1. Выберите дату</div>}
                   {availableTimesCount!=0 && <div className="instruction_animate">2. Выберите доступное время</div>}
@@ -126,13 +139,14 @@ function App() {
                 width:"100%",
                 display:"flex",
                 flexDirection:"column",
-                alignItems:"center"
+                alignItems:"center",
+                marginTop:"20px"
                 
               }}>       
                 <TimeSelectComponent/>
                 {!(Object.keys(selectedDateTime).length === 0 && selectedDateTime.constructor === Object) &&
                 <>
-                 <TextField sx={{ m: 1, maxWidth: 600 }}
+                 <TextField sx={{ m: 1,maxWidth:"1000px" }}
                   disabledid="outlined-disabled"
                   fullWidth
                   className="instruction_animate"
@@ -141,7 +155,7 @@ function App() {
                   <div
                   style={{
                     justifyContent:"center",
-                    maxWidth:"600px",
+                    maxWidth:"1000px",
                     display:"flex",
                     width:"100%"
                   }}> 
@@ -149,7 +163,9 @@ function App() {
                           <ErrorIcon
                           className="instruction_animate"
                           style={{
+                            
                           alignSelf:"flex-end",
+                          maxWidth:"1000px",
                           paddingBottom:"7px"
                         }} color="error"></ErrorIcon>
                     </Tooltip>}
@@ -163,7 +179,7 @@ function App() {
                     fullWidth
                     label="Email Address"
                     type="email"
-                    sx={{ m: 1, maxWidth: 600,margin:"0px" }}
+                    sx={{ m: 1,margin:"0px",maxWidth:"1000px" }}
                     variant="standard"
                   /></div>
                  
@@ -176,13 +192,13 @@ function App() {
                   onChange={(event)=>setComment(event.target.value)}
                   margin="dense"
                   id="name"
-                  multiline
+                  //multiline
                   label="Комментарий"
                   type="text"
-                  sx={{ m: 1, maxWidth: 600 }}
+                  sx={{ m: 1, maxWidth: 1000 }}
                   variant="standard"
                 />
-                 <Button variant="contained"  className="instruction_animate" disabled={errorEmail} fullWidth sx={{ m: 1, maxWidth: 600,height:50,fontSize:"16px"}} onClick={()=>sendData()}>Выбрать</Button>
+                 <Button variant="contained"  className="instruction_animate" disabled={errorEmail} fullWidth sx={{ m: 1, maxWidth: 1000,height:50,fontSize:"16px"}} onClick={()=>sendData()}>Выбрать</Button>
                 </>
                 }
               </div>
