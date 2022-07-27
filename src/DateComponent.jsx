@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Badge } from '@mui/material';
 import { setAvailableTimes, setSelectedDateTime, setSelectedDay } from './reducers/timeReducer';
 import { fontSize } from '@mui/system';
-
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ruRU as pickersruRu } from '@mui/x-date-pickers';
 
 function DateComponent() {
   const dispatch=useDispatch();
@@ -19,48 +20,43 @@ function DateComponent() {
     console.log(val)
     setChoosenDate(val);
     dispatch(setSelectedDay(new Date(val)))
-    dispatch(setAvailableTimes(datesForSetAvailableTimes.filter(p=>{return new Date(p.date).getTime()==val.getTime()})))
-    //dispatch(setSelectedDateTime({}));
+    dispatch(setAvailableTimes(datesForSetAvailableTimes.filter(p=>{
+      return new Date(p.date).toLocaleDateString()==val.toLocaleDateString()})))
   }
-  
-
   return (
-    <div style={{
-      border: '1px solid #9c88ff',
-      boxShadow: '0 1.5rem 2rem rgba(156, 136, 255, 0.2)',
-      borderRadius:"20px",
-      justifySelf: "start"
+    <div className="datePicker_container"
+     style={{
+      
     }}>
-       <LocalizationProvider style={{
-        
-       
-      }}  dateAdapter={AdapterDateFns}>
-          <CalendarPicker 
-            sx={{
-              
-            }}
+      
+       <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <StaticDatePicker 
             fullWidth
             openTo="day"
+            orientation="landscape"
             disableHighlightToday={true}
             minDate={new Date()}
             onChange={(value)=>onChangeDate(value)}
             value={choosenDate}
+            renderInput={(params) => <TextField {...params} />}
             renderDay={(day, _value, DayComponentProps) => {
-              const isSelected =
+              const currentDate=new Date().getDate()
+              const isSelected=new Date(day).toLocaleDateString()==new Date(choosenDate).toLocaleDateString();
+              const isCanSelected =
                 !DayComponentProps.outsideCurrentMonth &&
-                dates.indexOf(day.getTime()) >= 0;
+                dates.indexOf(day.getTime()) >= 0 && day.getDate()>=currentDate;
                 return (
                   <PickersDay {...DayComponentProps} 
-                  style={{
-                    backgroundColor:isSelected?"#1B1C84":"#91E48F",
-                    color:isSelected?"white":"black",
+                  style={
+                    {
+                    backgroundColor:isSelected?"red":isCanSelected?"#1B1C84":"white",
+                    color:isSelected?"white":isCanSelected?"white":"black",
                     fontSize:"15px",
                   }}/>
               );
             }}
-            
           />
-      </LocalizationProvider>
+      </LocalizationProvider> 
     </div>
   );
 }

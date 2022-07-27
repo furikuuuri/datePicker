@@ -1,0 +1,17 @@
+.header_container{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+.header_img{
+    width: 300px;
+}
+.header_title{
+    
+    font-size:45px;
+    border-bottom:3px solid black ;
+    font-weight: 600;
+}

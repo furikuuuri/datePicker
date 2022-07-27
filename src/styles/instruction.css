@@ -1,0 +1,27 @@
+.instruction_header{
+    width:100%;
+    max-width:500px;
+    font-size:20px;
+    padding:10px;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+}
+.instruction_animate
+{
+    opacity:0;
+    transition: 1s; /*Скорость перехода состояния элемента*/
+    animation: show 1s 1; /* Указываем название анимации, её время и количество повторов*/
+    animation-fill-mode: forwards; /* Чтобы элемент оставался в конечном состоянии анимации */
+}
+@keyframes show{
+    0%{
+    
+    transform: translateY(6em);
+    opacity:0;
+    }
+    100% {
+    transform: translateY(0em);
+    opacity:1;
+    }
+}
