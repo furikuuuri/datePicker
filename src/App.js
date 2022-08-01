@@ -17,6 +17,8 @@ import Header from './Header';
 import InstructionList from './InstructionList';
 import EmailInput from './EmailInput';
 import SelectedDateTimeOutput from './SelectedDateTime';
+import DateComponentHeader from './DateComponentHeader';
+import TimeBlockContainer from './TimeBlockContainer';
 
 
 function App() {
@@ -64,15 +66,17 @@ function App() {
   <Container className="main_container">
     <Header/>
     <div className="datePickerAndInstruction_container" >
+      <DateComponentHeader/>
       <DateComponent/>
-      <InstructionList/>
+      {/* //<InstructionList/> */}
     </div>  
-    {availableTimesCount!=0 && <div className="dataFieldsAndTimeSelect_container">    
-      <TimeSelectComponent/>
+    {availableTimesCount!=0 && <div className="dataFieldsAndTimeSelect_container">   
+      <TimeBlockContainer/> 
+      {/* <TimeSelectComponent/> */}
       {!(Object.keys(selectedDateTime).length === 0 && selectedDateTime.constructor === Object) &&
       <div className="dataFields_container">
-        <SelectedDateTimeOutput/>
-        <EmailInput setErrorEmailProps={setErrorEmail} setEmail={setEmail} email={email}/>
+        {/* <SelectedDateTimeOutput/> */}
+        {/* <EmailInput setErrorEmailProps={setErrorEmail} setEmail={setEmail} email={email}/>
         <TextField 
           className="instruction_animate"
           autoFocus
@@ -118,7 +122,7 @@ function App() {
           disabled={errorEmail}
           fullWidth
           sx={{ m: 1,height:50,fontSize:"16px"}}
-          onClick={()=>sendData()}>Выбрать</Button>
+          onClick={()=>sendData()}>Выбрать</Button> */}
       </div>
       }
     </div>}

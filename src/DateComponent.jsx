@@ -28,10 +28,11 @@ function DateComponent() {
      style={{
       
     }}>
-      
        <LocalizationProvider dateAdapter={AdapterDateFns}>
           <StaticDatePicker 
-            fullWidth
+            style={{
+              maxWidth: "600px",
+            }}
             openTo="day"
             orientation="landscape"
             disableHighlightToday={true}

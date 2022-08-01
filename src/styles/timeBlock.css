@@ -1,0 +1,56 @@
+.timeBlockContainer_container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.timeBlockContainer_wrapper{
+    border: 7px solid #193250;
+    width: 100%;
+    box-shadow: 0 1.5rem 2rem rgba(156, 136, 255, 0.2);
+    border-radius:0px 20px 20px 20px;
+    padding: 20px;
+    /* width:100%; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+.timeBlock_container{
+    width: 200px;
+    max-width: 200px;
+    height: 50px;
+    max-height:50px;
+    /* border: 1px solid #193250; */
+    border-radius:10px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    transition: all 500ms ease;
+    
+}
+.timeBlock_container:hover{
+    background-color: #193250;
+    color:white;
+}
+.timeBlock_string{
+    font-size: 16px;
+    font-weight: 600;
+}
+.timeBlockContainer_header{
+    /* padding-left: 5px;
+    padding-bottom: 5px;
+    font-size: 20px;
+    border-bottom:3px solid #9c88ff ; */
+    background-color: #193250;
+    color:white;
+    width:400px;
+    display: flex;
+    height:30px;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    border: 3px solid #193250;
+    border-radius:20px 20px 0px 0px;
+
+}
