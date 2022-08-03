@@ -19,6 +19,7 @@ import EmailInput from './EmailInput';
 import SelectedDateTimeOutput from './SelectedDateTime';
 import DateComponentHeader from './DateComponentHeader';
 import TimeBlockContainer from './TimeBlockContainer';
+import FieldsFeedBackContainer from './FieldsFeedBackContainer';
 
 
 function App() {
@@ -39,10 +40,12 @@ function App() {
   const [comment,setComment]=useState();
   const [fio,setFio]=useState();
   const [company,setCompany]=useState();
-
+  const [choosenDate,setChoosenDate]=useState()
   
-  const sendData=async ()=>
+  const sendData=async (email,comment,fio,company)=>
   {
+
+    console.log(email+comment+fio+company)
     setIsLoading(true)
     setOpen(true);
     var result =await bookActivityService(selectedDateTime.id,email,comment,fio,company);
@@ -50,11 +53,12 @@ function App() {
     setInformationMessage(result);
     setIsLoading(false);
   
-    dispatch(setSelectedDay({}))
+    // dispatch(setSelectedDay({}))
     dispatch(setAvailableTimes([]))
     dispatch(setSelectedDateTime({}))
     try{
       var dates= await getFreeAcivitiesService();
+      setChoosenDate("");
       dispatch(setDates(dates))
     }
     catch(exc)
@@ -63,67 +67,16 @@ function App() {
     }
   }
   return (
-  <Container className="main_container">
+  <div className="main_container">
     <Header/>
     <div className="datePickerAndInstruction_container" >
       <DateComponentHeader/>
-      <DateComponent/>
-      {/* //<InstructionList/> */}
+      <DateComponent choosenDate={choosenDate} setChoosenDate={setChoosenDate}/>
     </div>  
     {availableTimesCount!=0 && <div className="dataFieldsAndTimeSelect_container">   
       <TimeBlockContainer/> 
-      {/* <TimeSelectComponent/> */}
-      {!(Object.keys(selectedDateTime).length === 0 && selectedDateTime.constructor === Object) &&
-      <div className="dataFields_container">
-        {/* <SelectedDateTimeOutput/> */}
-        {/* <EmailInput setErrorEmailProps={setErrorEmail} setEmail={setEmail} email={email}/>
-        <TextField 
-          className="instruction_animate"
-          autoFocus
-          fullWidth
-          value={comment}
-          onChange={(event)=>setComment(event.target.value)}
-          margin="dense"
-          id="name"
-          label="Комментарий"
-          type="text"
-          //sx={{ m: 1, maxWidth: 1000 }}
-          variant="standard"
-        />
-        <TextField 
-          className="instruction_animate"
-          autoFocus
-          fullWidth
-          value={fio}
-          onChange={(event)=>setFio(event.target.value)}
-          margin="dense"
-          id="name"
-          label="ФИО"
-          type="text"
-          //sx={{ m: 1, maxWidth: 1000 }}
-          variant="standard"
-        />
-        <TextField 
-          className="instruction_animate"
-          autoFocus
-          fullWidth
-          value={company}
-          onChange={(event)=>setCompany(event.target.value)}
-          margin="dense"
-          id="name"
-          label="Компания"
-          type="text"
-          //sx={{ m: 1, maxWidth: 1000 }}
-          variant="standard"
-        />
-        <Button 
-          variant="contained" 
-          className="instruction_animate" 
-          disabled={errorEmail}
-          fullWidth
-          sx={{ m: 1,height:50,fontSize:"16px"}}
-          onClick={()=>sendData()}>Выбрать</Button> */}
-      </div>
+      {!(Object.keys(selectedDateTime).length === 0 && selectedDateTime.constructor === Object) && 
+        <FieldsFeedBackContainer sendData={sendData}/>
       }
     </div>}
     <Dialog
@@ -159,7 +112,7 @@ function App() {
         <Button onClick={()=>setOpen(false)}>Окей</Button>
       </DialogActions>
     </Dialog>
-  </Container>
+  </div>
             
        
    

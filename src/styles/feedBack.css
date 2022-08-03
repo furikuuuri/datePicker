@@ -1,0 +1,88 @@
+.fieldsFeedBackContainer_container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width:1000px;
+    margin-bottom: 20px;
+}
+
+.fieldsFeedBackContainer_header{
+    background-color: #193250;
+    color:white;
+    width:400px;
+    display: flex;
+    height:30px;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    border: 3px solid #193250;
+    border-radius:20px 20px 0px 0px;
+}
+
+.fieldsFeedBackContainer_wrapper{
+    /* border: 7px solid #193250; */
+    box-shadow: 5px 5px 25px rgba(156, 136, 255, 0.4);
+    border-radius:0px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.fieldsFeedBackDataFields_container{
+    gap:10px;
+    display: flex;
+    width:100%;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.fieldsFeedBack_button{
+    margin-top: 20px;
+    height: 50px;
+    max-width: 300px;
+    width: 90%;
+    border: 5px solid #193250;
+    border-radius: 30px;
+    background-image: linear-gradient(45deg, #193250 50%, transparent 50%);
+    background-position: 100%;
+    background-size: 400%;
+    -webkit-transition: background 100ms ease-in-out;
+    transition: 500ms ease-in-out;
+    /* transition: color 300ms ease-in-out; */
+    font-size: 25px;
+}
+.fieldsFeedBack_button:hover{
+    color:white;
+    background-position: 0;
+}
+.fieldsFeedBack_button:active{
+    transform: scale(1.03);
+}
+
+.feedBack_Input{
+    width: 90%;
+    outline:none;
+    border: 5px solid #193250;
+    max-width: 400px;
+    min-width: 300px;
+    height: 50px;
+    border-radius:10px;
+    padding-left: 10px;
+    font-size: 20px;
+    transition: 300ms ease-in-out;
+    margin-top: 10px;
+}
+
+.feedBack_Input:focus{
+    transform: scale(1.03);
+    border: 5px solid #f94015;
+    outline:none;
+    width: 90%;
+    max-width: 400px;
+    min-width: 300px;
+    height: 50px;
+    border-radius:10px;
+    padding-left: 10px;
+    font-size: 20px;
+    /* margin-top: 10px; */
+}

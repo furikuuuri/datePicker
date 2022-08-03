@@ -1,4 +1,4 @@
-import { CalendarPicker,StaticDatePicker, LocalizationProvider, bgBG, DatePicker,PickersDay } from '@mui/x-date-pickers';
+import { CalendarPicker,StaticDatePicker ,LocalizationProvider, bgBG, DatePicker,PickersDay } from '@mui/x-date-pickers';
 import { TextField } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { useState } from 'react';
@@ -8,17 +8,55 @@ import { setAvailableTimes, setSelectedDateTime, setSelectedDay } from './reduce
 import { fontSize } from '@mui/system';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { ruRU as pickersruRu } from '@mui/x-date-pickers';
+import ruLocale from "date-fns/locale/ru";
 
-function DateComponent() {
+
+function DateComponent(props) {
+  const theme = createTheme({
+    components: {
+      MuiCalendarPicker: {
+        styleOverrides: {
+          root: {
+            //backgroundColor: "rgba(120, 120, 120, 0.2)",
+            width: "400px",
+          },
+          "& .css-epd502": {
+            width: "400px",
+          },
+        },
+      },
+      MuiPickerStaticWrapper:{
+        styleOverrides:{
+          content:{
+            "& .css-epd502": {
+              width: "400px",
+            },
+            "& .css-1n2mv2k": {
+              //backgroundColor: "rgba(120, 120, 120, 0.2)",
+              justifyContent: "space-around"
+            },
+          }
+        }
+      },
+      MuiPickersDay:{
+        styleOverrides:{
+          hiddenDaySpacingFiller:{
+            width:"45px",
+            height:"45px",
+          }
+        }
+      },
+      
+    },
+  });
+  
   const dispatch=useDispatch();
   const dates=useSelector(state=>state.times.dates).map(p=>{return new Date(p.date).getTime()})
   const datesForSetAvailableTimes=useSelector(state=>state.times.dates);
-  const [choosenDate,setChoosenDate]=useState()
   const onChangeDate=(val)=>
   {
     dispatch(setAvailableTimes([]))
-    console.log(val)
-    setChoosenDate(val);
+    props.setChoosenDate(val);
     dispatch(setSelectedDay(new Date(val)))
     dispatch(setAvailableTimes(datesForSetAvailableTimes.filter(p=>{
       return new Date(p.date).toLocaleDateString()==val.toLocaleDateString()})))
@@ -28,21 +66,24 @@ function DateComponent() {
      style={{
       
     }}>
-       <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <div
+       style={{
+          width: "90%",
+        }}>
+           <ThemeProvider theme={theme}>
+       <LocalizationProvider dateAdapter={AdapterDateFns} locale={ruLocale}>
           <StaticDatePicker 
-            style={{
-              maxWidth: "600px",
-            }}
             openTo="day"
             orientation="landscape"
             disableHighlightToday={true}
             minDate={new Date()}
             onChange={(value)=>onChangeDate(value)}
-            value={choosenDate}
+            value={props.choosenDate}
+            displayStaticWrapperAs="desktop"
             renderInput={(params) => <TextField {...params} />}
             renderDay={(day, _value, DayComponentProps) => {
               const currentDate=new Date().getDate()
-              const isSelected=new Date(day).toLocaleDateString()==new Date(choosenDate).toLocaleDateString();
+              const isSelected=new Date(day).toLocaleDateString()==new Date(props.choosenDate).toLocaleDateString();
               const isCanSelected =
                 !DayComponentProps.outsideCurrentMonth &&
                 dates.indexOf(day.getTime()) >= 0 && day.getDate()>=currentDate;
@@ -50,14 +91,18 @@ function DateComponent() {
                   <PickersDay {...DayComponentProps} 
                   style={
                     {
-                    backgroundColor:isSelected?"red":isCanSelected?"#1B1C84":"white",
-                    color:isSelected?"white":isCanSelected?"white":"black",
-                    fontSize:"15px",
+                      width:"45px",
+                      height:"45px",
+                      backgroundColor:isSelected?"#f94015":isCanSelected?"#193250":"white",
+                      color:isSelected?"white":isCanSelected?"white":"black",
+                      fontSize:"22px",
                   }}/>
               );
             }}
           />
-      </LocalizationProvider> 
+      </LocalizationProvider>
+      </ThemeProvider>
+      </div> 
     </div>
   );
 }

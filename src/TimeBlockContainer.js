@@ -6,7 +6,12 @@ import TimeBlock from './TimeBlock';
 import { setAvailableTimes, setSelectedDateTime } from './reducers/timeReducer';
 
 export default function TimeBlockContainer() {
-
+    useEffect(() => {
+        return function cleanupSelectedTime() {
+            setSelectedTimeId("");
+            dispatch(setSelectedDateTime({}))
+        };
+      },[]);
     const setSelect=(id,time_object)=>{
         dispatch(setSelectedDateTime(time_object))
         setSelectedTimeId(id)

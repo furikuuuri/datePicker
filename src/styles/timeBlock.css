@@ -2,14 +2,15 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    max-width:1000px;
+    margin-bottom: 40px;
 }
 .timeBlockContainer_wrapper{
-    border: 7px solid #193250;
-    width: 100%;
-    box-shadow: 0 1.5rem 2rem rgba(156, 136, 255, 0.2);
+    /* border: 7px solid #193250; */
+    box-shadow: 5px 5px 25px rgba(156, 136, 255, 0.4);
     border-radius:0px 20px 20px 20px;
-    padding: 20px;
-    /* width:100%; */
+    padding-top: 20px;
+    padding-bottom: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -30,6 +31,7 @@
     
 }
 .timeBlock_container:hover{
+    cursor: pointer;
     background-color: #193250;
     color:white;
 }

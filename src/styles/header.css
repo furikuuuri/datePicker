@@ -1,17 +1,30 @@
 .header_container{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    max-width: 1400px;
     display: flex;
-    width: 100%;
+    width:100%;
     justify-content: space-around;
-    align-items: flex-end;
-    padding: 20px;
+    align-items: center;
     flex-wrap: wrap;
+
 }
 .header_img{
-    width: 300px;
+    height:70px;
 }
 .header_title{
-    
-    font-size:45px;
-    border-bottom:3px solid black ;
+    border-radius: 35px;
+    background-color: #193250;
+    color:white;
+    padding: 20px;
+    justify-self: center;
+    font-size:40px;
     font-weight: 700;
+}
+.header_wrapper{
+    border-bottom: 3px solid #193250;
+    display: flex;
+    justify-content: center;
+    width:100%;
+    margin-bottom: 20px;
 }
