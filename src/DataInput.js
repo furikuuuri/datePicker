@@ -23,6 +23,12 @@ export default function DataInput(props) {
             onFocus={()=>focus()}
             onBlur={()=>setIsSelected(false)}>
           </input>
+          <div className="feedBack_error" 
+            style={{
+              visibility:props.IsValid?"hidden":"visible",
+              color:"red"
+            }}
+          >{props.errorMessage}</div>
 
       </div>
         

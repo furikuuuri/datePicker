@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Badge } from '@mui/material';
 import { setAvailableTimes, setSelectedDateTime, setSelectedDay } from './reducers/timeReducer';
-import { fontSize } from '@mui/system';
+import { fontSize, padding } from '@mui/system';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { ruRU as pickersruRu } from '@mui/x-date-pickers';
 import ruLocale from "date-fns/locale/ru";
@@ -19,9 +19,12 @@ function DateComponent(props) {
           root: {
             //backgroundColor: "rgba(120, 120, 120, 0.2)",
             width: "400px",
+            
+            padding:"20px"
           },
           "& .css-epd502": {
             width: "400px",
+            border:"5px solid black",
           },
         },
       },
@@ -30,6 +33,8 @@ function DateComponent(props) {
           content:{
             "& .css-epd502": {
               width: "400px",
+              border:"7px solid #193250",
+              borderRadius:"25px"
             },
             "& .css-1n2mv2k": {
               //backgroundColor: "rgba(120, 120, 120, 0.2)",
