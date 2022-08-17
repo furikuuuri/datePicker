@@ -6,7 +6,7 @@ export default function Header(props) {
     <div className="header_wrapper">
       <div className="header_container">
         <img src={logo} className="header_img"></img>
-        <div className="header_title">Бронируй меня полностью</div>
+        {/* <div className="header_title">Бронируй меня полностью</div> */}
       </div>
     </div>
     

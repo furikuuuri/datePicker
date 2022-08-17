@@ -28,14 +28,16 @@
     
 }
 .datePicker_header{
+
     background-color: #193250;
     color:white;
-    width:400px;
+    max-width:400px;
     display: flex;
-    height:30px;
-    justify-content: center;
+    min-height:30px;
+    padding-left: 10px;
+    justify-content: flex-start;
     align-items: center;
-    font-size: 20px;
+    font-size: 22px;
     border: 3px solid #193250;
     border-radius:20px 20px 0px 0px;
 }

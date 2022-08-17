@@ -20,7 +20,7 @@ function DateComponent(props) {
             //backgroundColor: "rgba(120, 120, 120, 0.2)",
             width: "400px",
             
-            padding:"20px"
+            padding:"0px"
           },
           "& .css-epd502": {
             width: "400px",
@@ -33,11 +33,14 @@ function DateComponent(props) {
           content:{
             "& .css-epd502": {
               width: "400px",
-              border:"7px solid #193250",
+              border:"3px solid #193250",
               borderRadius:"25px"
             },
             "& .css-1n2mv2k": {
               //backgroundColor: "rgba(120, 120, 120, 0.2)",
+              justifyContent: "space-around"
+            },
+            "& .css-mvmu1r":{
               justifyContent: "space-around"
             },
           }
@@ -62,6 +65,7 @@ function DateComponent(props) {
   {
     dispatch(setAvailableTimes([]))
     props.setChoosenDate(val);
+    let date=new Date(val);
     dispatch(setSelectedDay(new Date(val)))
     dispatch(setAvailableTimes(datesForSetAvailableTimes.filter(p=>{
       return new Date(p.date).toLocaleDateString()==val.toLocaleDateString()})))

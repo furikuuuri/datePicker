@@ -20,6 +20,7 @@ import SelectedDateTimeOutput from './SelectedDateTime';
 import DateComponentHeader from './DateComponentHeader';
 import TimeBlockContainer from './TimeBlockContainer';
 import FieldsFeedBackContainer from './FieldsFeedBackContainer';
+import GreetingBlock from './GreetingBlock';
 
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
   return (
   <div className="main_container">
     <Header/>
+    <GreetingBlock/>
     <div className="datePickerAndInstruction_container" >
       <DateComponentHeader/>
       <DateComponent choosenDate={choosenDate} setChoosenDate={setChoosenDate}/>

@@ -20,19 +20,27 @@ export default function TimeBlockContainer() {
     const selectedDate=useSelector(state=>state.times.selectedDay);
     const availableTimes=useSelector(state=>state.times.availableTimes);
     const [selectedTimeId,setSelectedTimeId]=useState();
+    const getDateString=(date)=>{
+        var options = { weekday: 'long', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString('ru-RU', options);
+    }
     return (
         <div className="timeBlockContainer_container">
-            <div className="timeBlockContainer_header">2. Выберите доступное время</div>
+            <div className="timeBlockContainer_header">Выберите доступное время</div>
             <div className="timeBlockContainer_wrapper">
-                {availableTimes?.map((dateTime) => {
-                let isSelected=selectedTimeId==dateTime.id
-                console.log(isSelected);
-                return <TimeBlock
-                    isSelected={isSelected}
-                    time_string={dateTime}
-                    key={dateTime.id}
-                    id={dateTime.id}
-                    onClick={setSelect}/> })}
+                {console.log(selectedDate)}
+                <div className="timeBlockContainer_currentDate">{getDateString(selectedDate)}</div>
+                <div className="timeBlockContainer_availableTimes">
+                    {availableTimes?.map((dateTime) => {
+                    let isSelected=selectedTimeId==dateTime.id
+                    return <TimeBlock
+                        isSelected={isSelected}
+                        time_string={dateTime}
+                        key={dateTime.id}
+                        id={dateTime.id}
+                        onClick={setSelect}/> })}
+                </div>
+                
             </div>
             
         </div>

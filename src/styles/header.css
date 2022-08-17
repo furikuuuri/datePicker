@@ -1,16 +1,16 @@
 .header_container{
     margin-top: 10px;
     margin-bottom: 10px;
-    max-width: 1400px;
+    max-width: 1000px;
     display: flex;
-    width:100%;
-    justify-content: space-around;
+    width:90%;
+    justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
 
 }
 .header_img{
-    height:70px;
+    height:80px;
 }
 .header_title{
     border-radius: 35px;
@@ -22,7 +22,7 @@
     font-weight: 700;
 }
 .header_wrapper{
-    border-bottom: 3px solid #193250;
+    
     display: flex;
     justify-content: center;
     width:100%;

@@ -78,9 +78,16 @@ export default function FieldsFeedBackContainer(props) {
     
     return (
         <div className="fieldsFeedBackContainer_container">
-            <div className="fieldsFeedBackContainer_header">3. Заполните поля</div>
+            <div className="fieldsFeedBackContainer_header">Заполните поля</div>
             <div className="fieldsFeedBackContainer_wrapper">
                 <div className="fieldsFeedBackDataFields_container">
+                    <DataInput 
+                        label="ФИО" 
+                        value={fio} 
+                        setValue={onFioChange}
+                        errorMessage={"Введите более 3 символов"}
+                        IsValid={isFioValid}
+                        />
                     <DataInput 
                         label="email" 
                         value={email} 
@@ -96,13 +103,6 @@ export default function FieldsFeedBackContainer(props) {
                         IsValid={isCompanyValid}
                         />
                     <DataInput 
-                        label="ФИО" 
-                        value={fio} 
-                        setValue={onFioChange}
-                        errorMessage={"Введите более 3 символов"}
-                        IsValid={isFioValid}
-                        />
-                    <DataInput 
                         label="Комментарий" 
                         value={comment} 
                         setValue={onCommentChange}
@@ -110,7 +110,7 @@ export default function FieldsFeedBackContainer(props) {
                         IsValid={isCommentValid}
                         />
                 </div>
-                <button className="fieldsFeedBack_button" onClick={sendData}>Отправить</button>
+                <button className="fieldsFeedBack_button" onClick={sendData}>Забронировать</button>
             </div>
             
         </div>
