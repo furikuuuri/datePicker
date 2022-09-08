@@ -34,7 +34,8 @@ function DateComponent(props) {
             "& .css-epd502": {
               width: "400px",
               border:"3px solid #193250",
-              borderRadius:"25px"
+              borderRadius:"25px",
+              padding:"5px"
             },
             "& .css-1n2mv2k": {
               //backgroundColor: "rgba(120, 120, 120, 0.2)",
@@ -100,11 +101,11 @@ function DateComponent(props) {
                   <PickersDay {...DayComponentProps} 
                   style={
                     {
-                      width:"45px",
-                      height:"45px",
+                      width:"40px",
+                      height:"40px",
                       backgroundColor:isSelected?"#f94015":isCanSelected?"#193250":"white",
                       color:isSelected?"white":isCanSelected?"white":"black",
-                      fontSize:"22px",
+                      fontSize:"20px",
                   }}/>
               );
             }}

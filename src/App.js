@@ -96,7 +96,7 @@ function App() {
       >
         <div>
           {isLoading&&<CircularProgress color="secondary" />}
-          {!isLoading&&<Alert  severity={informationMessage?.status}>
+          {!isLoading&&<Alert>
           <div
             style={{
               display:"flex",
@@ -104,8 +104,9 @@ function App() {
               alignItems:"center",
               fontSize:"20px"
           }}>
-            <div>{informationMessage?.info}</div>
-            <div>{informationMessage?.result?.join_url}</div>
+            <div>Встреча забронирована. </div>
+            <div>Проверьте почту, туда мы направили письмо со ссылкой на Zoom конференцию.</div>
+            <div>До встречи!</div>
           </div>
           </Alert>}
         </div>

@@ -6,7 +6,7 @@ export default function GreetingBlock(props) {
   return (
        <div className="greetingBlock_wrapper">
            <div className="greetingBlock_container">
-                <div>Кулак Олег</div>
+                <div>Левченко Катерина</div>
                 <div>Online-встреча</div>
                 <div>Давайте начнем!!!</div>
            </div>
