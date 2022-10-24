@@ -3,9 +3,10 @@
 }
 .main_container{
     display: flex;
-    flex-direction: column;
-    align-content: center;
     align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    gap:30px;
 }
 
 .datePickerAndInstruction_container{
@@ -40,12 +41,6 @@
     font-size: 22px;
     border: 3px solid #193250;
     border-radius:20px 20px 0px 0px;
-}
-.main_container{
-    /* width:100%; */
-    display:flex;
-    align-items:center;
-    flex-direction:column;
 }
 .dataFieldsAndTimeSelect_container{
     width:90%;

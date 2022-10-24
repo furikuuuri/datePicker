@@ -69,13 +69,14 @@ function App() {
   }
   return (
   <div className="main_container">
-    <Header/>
     <GreetingBlock/>
-    <div className="datePickerAndInstruction_container" >
-      <DateComponentHeader/>
-      <DateComponent choosenDate={choosenDate} setChoosenDate={setChoosenDate}/>
-    </div>  
-    {availableTimesCount!=0 && <div className="dataFieldsAndTimeSelect_container">   
+    
+      <div className="datePickerAndInstruction_container" >
+        <DateComponentHeader/>
+        <DateComponent choosenDate={choosenDate} setChoosenDate={setChoosenDate}/>
+      </div> 
+  
+    {/* {availableTimesCount!=0 && <div className="dataFieldsAndTimeSelect_container">   
       <TimeBlockContainer/> 
       {!(Object.keys(selectedDateTime).length === 0 && selectedDateTime.constructor === Object) && 
         <FieldsFeedBackContainer sendData={sendData}/>
@@ -114,7 +115,7 @@ function App() {
       <DialogActions>
         <Button onClick={()=>setOpen(false)}>Окей</Button>
       </DialogActions>
-    </Dialog>
+    </Dialog> */}
   </div>
             
        
